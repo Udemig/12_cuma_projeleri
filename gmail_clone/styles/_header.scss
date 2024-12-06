@@ -1,5 +1,5 @@
 @import "./module";
-
+@import "./mixin";
 // Header
 header {
   @extend .flex;
@@ -22,6 +22,11 @@ header {
     span {
       cursor: pointer;
     }
+    .logo-text {
+      @include laptop {
+        display: none;
+      }
+    }
   }
   // Middle
   .middle {
@@ -32,7 +37,57 @@ header {
       background-color: $search-input;
       padding: 6px 10px;
       border-radius: 30px;
-      max-width: 580px;
+      max-width: 560px;
+      @include laptop {
+        flex: 1 !important;
+      }
+
+      .search {
+        @extend .flex;
+        gap: 10px;
+        input {
+          border: none;
+          outline: none;
+          width: 450px;
+          background: transparent;
+          font-size: 18px;
+        }
+        i {
+          @extend .icon;
+          @include laptop {
+          }
+        }
+      }
+      .settings {
+        i {
+          @extend .icon;
+          @include laptop {
+            display: none !important;
+          }
+        }
+      }
+    }
+  }
+
+  // Right
+  .right {
+    @extend .flex;
+    gap: 10px;
+
+    i {
+      @extend .icon;
+      @include laptop {
+        display: none !important;
+      }
+    }
+
+    img {
+      width: 37px;
+      height: 37px;
+      border-radius: 50%;
+      @include laptop {
+        display: none;
+      }
     }
   }
 }
