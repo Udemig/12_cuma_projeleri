@@ -187,7 +187,7 @@ main {
 }
 main .top {
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-between !important;
   padding: 5px 10px;
 }
 main .top .left {
@@ -229,7 +229,7 @@ main .mails-area .mail:hover {
   box-shadow: 0 0 10px rgb(211, 211, 211);
 }
 main .mails-area .mail .left {
-  justify-content: start;
+  justify-content: start !important;
   gap: 5px;
 }
 main .mails-area .mail .left i {
@@ -242,6 +242,7 @@ main .mails-area .mail .left span {
 main .mails-area .mail .right {
   justify-content: space-between;
   font-size: 17px;
+  padding-right: 20px;
 }
 main .mails-area .mail .right .messagge-title {
   font-weight: bold;
@@ -249,7 +250,7 @@ main .mails-area .mail .right .messagge-title {
 }
 main .mails-area .mail .right .messagge-description {
   margin-left: 14px;
-  width: 100%;
+  width: 100% !important;
   white-space: nowrap;
 }
 main .mails-area .mail .right .messagge-date {

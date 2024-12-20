@@ -14,7 +14,7 @@ main {
   .top {
     @extend .flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-between !important;
     padding: 5px 10px;
     .left {
       display: flex;
@@ -50,6 +50,7 @@ main {
   // mails-area
   .mails-area {
     height: 80vh;
+
     .mail {
       height: 41px;
       display: grid;
@@ -66,8 +67,9 @@ main {
 
       .left {
         @extend .flex;
-        justify-content: start;
+        justify-content: start !important;
         gap: 5px;
+
         i {
           @extend .icon;
           width: 20px;
@@ -82,13 +84,15 @@ main {
         @extend .flex;
         justify-content: space-between;
         font-size: 17px;
+        padding-right: 20px;
+
         .messagge-title {
           font-weight: bold;
           white-space: nowrap;
         }
         .messagge-description {
           margin-left: 14px;
-          width: 100%;
+          width: 100% !important;
           white-space: nowrap;
         }
         .messagge-date {
