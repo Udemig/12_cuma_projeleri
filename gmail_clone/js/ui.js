@@ -19,7 +19,7 @@ export const renderMails = (outlet, data) => {
        
             <div class="left">
               <input type="checkbox" />
-              <i class="bi bi-star"></i>
+              <i class="bi bi-star${mail.stared ? "-fill" : ""}"></i>
               <span>${mail.recevier} </span>
             </div>
     
@@ -38,3 +38,28 @@ export const renderMails = (outlet, data) => {
     )
     .join(" ");
 };
+
+// Dinamik kategorileri render eden fonksiyon
+
+export function renderCategories(outlet, data, selectedCategory) {
+  // Eski kategorileri sil
+  outlet.innerHTML = "";
+  // Verileri dön ve yeni kategorileri render et
+  data.forEach((category) => {
+    // Bir eleman oluştur
+    const categortyItem = document.createElement("a");
+    // Oluşturulan elemana verileri ekle
+    categortyItem.dataset.name = category.title;
+
+    // Aktif kategoriye class ekle
+
+    categortyItem.className = selectedCategory === category.title && "active";
+
+    // Category elemanının  içeriğini belirle
+    categortyItem.innerHTML = `   
+            <i class="${category.class}"></i>
+            <span>${category.title}</span>  
+    `;
+    outlet.appendChild(categortyItem);
+  });
+}

@@ -2,8 +2,9 @@
 // console.log(`Gmail clone projesinden selamlar`);
 
 // ! Diğer dosyalardan import
-import { renderMails, showModal } from "./ui.js";
+import { renderCategories, renderMails, showModal } from "./ui.js";
 import { getDate } from "./helper.js";
+import { categories } from "./contants.js";
 
 // ! Html'deki elemanlara erişme
 
@@ -14,6 +15,9 @@ const modal = document.querySelector(".modal-wrapper");
 const closeModalBtn = document.querySelector("#close-btn");
 const form = document.querySelector("#create-mail-form");
 const mailsArea = document.querySelector(".mails-area");
+const searchInput = document.querySelector("#search-input");
+const searchButton = document.querySelector("#search-icon");
+const categoryArea = document.querySelector(".nav-middle");
 
 // ! localstoragedan verileri al
 const strMailData = localStorage.getItem("data");
@@ -54,6 +58,23 @@ window.addEventListener("resize", (e) => {
     navigation.classList.remove("hide");
   }
 });
+
+const watchCategory = (e) => {
+  const leftNav = e.target.parentElement;
+  const selectedCategory = leftNav.dataset.name;
+  renderCategories(categoryArea, categories, selectedCategory);
+
+  if (selectedCategory === "Yıldızlananlar") {
+    const filtred = mailData.filter((i) => i.stared === true);
+    renderMails(mailsArea, filtred);
+    return;
+  }
+
+  renderMails(mailsArea, mailData);
+};
+
+// Categori alanında gerçekleşen tıklamaları izle
+categoryArea.addEventListener("click", watchCategory);
 
 // Form gönderildiğinde çalışacak fonksiyon
 const sendMail = (e) => {
@@ -158,6 +179,30 @@ const updateMail = (e) => {
     // Kaldırılan maili arayüzden de kaldır
     mail.remove();
   }
+
+  // Eğer yıldız iconuna tıklandıysa bu maili yıldızla
+
+  if (
+    e.target.classList.contains("bi-star") ||
+    e.target.classList.contains("bi-star-fill")
+  ) {
+    // Tıklanan yıldız iconunun kapsamına eriş
+    const mail = e.target.parentElement.parentElement;
+    // Tıklanılan elemanın data-id sine eriş
+    const mailId = mail.dataset.id;
+    // Mail dizisi içerisinde id'si bilinen elemanı bul
+    const foundedMail = mailData.find((i) => i.id == mailId);
+    // Bulunan elemanın yıldızlımı değerini tersine çevir
+    const updatedMail = { ...foundedMail, stared: !foundedMail.stared };
+    // Güncellenen elemanın indexini bul
+    const index = mailData.findIndex((i) => i.id == mailId);
+    // İndexi bulunan elemanı dizide güncelle
+    mailData[index] = updatedMail;
+    // Localstorage ı güncelle
+    localStorage.setItem("data", JSON.stringify(mailData));
+    // Ekranı güncel verilerle render et
+    renderMails(mailsArea, mailData);
+  }
 };
 
 // Formun gönderilmesini izle
@@ -165,3 +210,13 @@ form.addEventListener("submit", sendMail);
 
 // Mail alanına tıklanınca çalışacak fonksiyon
 mailsArea.addEventListener("click", updateMail);
+
+// Arama butonuna tıklandığında çalışan fonksiyon
+searchButton.addEventListener("click", () => {
+  // İnput içerisindeki değerin mail dizisi içerisinde olup olmadığını kontrol et.Ve eğer varsa bunu filtredArray dizisine aktar
+  const filtredArray = mailData.filter((i) => {
+    return i.message.toLowerCase().includes(searchInput.value.toLowerCase());
+  });
+  // Bulunan mailleri ekrana render et
+  renderMails(mailsArea, filtredArray);
+});
