@@ -40,6 +40,8 @@ body {
   grid-area: likes;
 }
 
+// * Header
+
 header {
   display: grid;
   grid-template-areas: "logo search likes";
@@ -157,5 +159,181 @@ header {
         }
       }
     }
+  }
+}
+
+// * Main
+main {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  height: 100%;
+  @include laptop {
+    grid-template-columns: 1fr;
+  }
+  // Results
+  .results {
+    display: flex;
+    flex-direction: column;
+    // Result Link
+    .result-link {
+      background-color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      gap: 20px;
+      transition: all 0.4s;
+      &:hover {
+        background-color: #f9f5f3;
+        transform: translateY(-2px);
+      }
+      // İmage
+      img {
+        height: 60px;
+        width: 60px;
+        border-radius: 50%;
+      }
+      // Data
+      .data {
+        h4 {
+          color: #fbda61;
+          max-width: 200px;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          // Bir satıra sığmayan yazıların gözükmemesini sağlar.
+          @include laptop {
+            max-width: 500px;
+          }
+        }
+      }
+    }
+  }
+  // Recipe
+  .recipe {
+    background-color: #f9f5f3;
+    figure {
+      height: 300px;
+      position: relative;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      h1 {
+        font-family: "Ubuntu", sans-serif;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 20%) skewY(-6deg);
+        color: white;
+        font-weight: 600;
+        background-color: #a9c9ff;
+        background-image: linear-gradient(90deg, #a9c9ff 0%, #ffbbec 100%);
+        padding: 10px 30px;
+        text-shadow: 0 0 10px rgba(0, 0, 0, 0.538);
+        white-space: nowrap;
+      }
+      .like-area {
+        display: flex;
+        justify-content: end;
+        padding: 30px;
+        i {
+          font-size: 26px;
+          padding: 5px;
+          cursor: pointer;
+          color: pink;
+          border-radius: 10px;
+          transition: all 300ms;
+          &:hover {
+            background-color: #bbbbbb;
+          }
+        }
+      }
+    }
+    // Ingredients
+    .ingredients {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 40px;
+      margin-top: 40px;
+      ul {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        row-gap: 20px;
+        column-gap: 40px;
+        @include laptop {
+          grid-template-columns: 1fr;
+        }
+        li {
+          display: flex;
+          gap: 10px;
+          i {
+            color: #b1cdfe;
+          }
+        }
+      }
+
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        cursor: pointer;
+        margin-top: 30px;
+        font-weight: 600;
+        color: white;
+        background-image: linear-gradient(90deg, #a9c9ff 0%, #ffbbec 100%);
+        max-width: 500px;
+        width: 80%;
+        margin: 50px auto;
+        font-size: 15px;
+        transition: all 300ms;
+        padding: 10px;
+        i {
+          font-size: 20px;
+        }
+        &:hover {
+          scale: 0.95;
+        }
+      }
+    }
+    // Directions
+    .directions {
+      text-align: center;
+      padding-bottom: 40px;
+      h2 {
+        font-family: "Ubuntu", sans-serif;
+        font-size: 30px;
+        transform: skewY(-3deg);
+        color: #fdbbec;
+        text-shadow: 0 0 30px #fdbbec;
+      }
+      p {
+        padding: 50px;
+        span {
+          color: #fdbbec;
+        }
+      }
+      a {
+        border: 1px solid #a9c9ff;
+        padding: 10px 30px;
+        border-radius: 30px;
+        transition: all 300ms;
+        &:hover {
+          background-color: #a9c9ff;
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+// Loader
+.loader {
+  margin: 80px auto;
+  img {
+    width: 250px;
   }
 }
