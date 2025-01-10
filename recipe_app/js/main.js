@@ -1,7 +1,18 @@
-import { Search } from "./api.js";
-import { elements } from "./helpers.js";
+// Uuid benzersiz id'ler oluşturan bir kütüphanedir.Bu projede tarif malzemeleri için benzersiz id'ler oluşturmak istediğimizden bu kütüphaneyi kullandık.
+import { v4 } from "https://jspm.dev/uuid";
+import Search from "./api.js";
+import {
+  controlBtn,
+  elements,
+  getFromLocalStorage,
+  setToLocalStorage,
+} from "./helpers.js";
 import { Recipe } from "./recipe.js";
-import { renderLoader, renderResults } from "./ui.js";
+import { renderBasketItems, renderLoader, renderResults } from "./ui.js";
+
+// Localstorage'daki sepet verilerini al ve bir diziye aktar
+
+let basket = getFromLocalStorage("basket") || [];
 
 // Recipe Classının örneğini al
 const recipe = new Recipe();
@@ -59,19 +70,111 @@ const handleSubmit = async (e) => {
 };
 
 // Sayfa yüklendiğinde ve id değişince çalışacak fonksiyon
-const controlRecipe = () => {
+const controlRecipe = async () => {
   // Ui dosyasında url e geçilen # ile id'yi api'a gönderirsek hata alırız.Bunun önlemek için replace("#", "") ile # kaldırdık.
   const id = window.location.hash.replace("#", "");
-  console.log(id);
 
   if (id) {
-    recipe.getRecipe(id);
+    // RecipeArea alanına loader render et
+    renderLoader(elements.recipeArea);
+    try {
+      await recipe.getRecipe(id);
+
+      recipe.renderRecipe(recipe.info);
+    } catch (err) {}
   }
 };
+
+// RecipeArea'ya tıklanıldığında çalışacak fonksiyon
+const handleClick = (e) => {
+  // Sepet iconuna tıklanırsa
+  if (e.target.id === "add-to-basket") {
+    // Sepete ekle butonuna tıklanınca herbir tarif elemanı için bir obje oluşturacağız
+    recipe.ingredients.forEach((title) => {
+      // Herbir  malzeme için bir obje oluştur
+      const newItem = {
+        id: v4(),
+        title,
+      };
+      /// Herbir ürünü sepet dizisine ekle
+      basket.push(newItem);
+    });
+    // Sepeti localStorage'a gönder
+    setToLocalStorage("basket", basket);
+
+    // Sepetteki ürünleri render et
+    renderBasketItems(basket);
+
+    // Sepetteki ürün miktarına göre clearBtn'i render et
+    controlBtn(basket);
+  }
+  // Like butonuna tıklanırsa
+  if (e.target.id === "like-btn") {
+    recipe.controlLike();
+  }
+};
+
+// Sepetteki ürünü silen fonksiyon
+const deleteItem = (e) => {
+  if (e.target.id === "delete-item") {
+    // Tıklanılan elemanın kapsam elemanına eriş
+    const parentElement = e.target.parentElement;
+    // ParentElemanın id'sine eriş
+    const parentId = parentElement.dataset.id;
+    // Sepetteki ürünlerin arasında id'si bilinen elemanı sepetten kaldır
+    basket = basket.filter((i) => i.id != parentId);
+
+    // Sepetin güncel halini localStorage'a gönder
+    setToLocalStorage("basket", basket);
+
+    // Elemanı arayüzden de kaldır
+    parentElement.remove();
+
+    // Sepetteki ürün miktarına göre clearBtn'i render et
+    controlBtn(basket);
+  }
+};
+
+// Sepeti sıfırlayan fonksiyon
+
+const handleClear = () => {
+  // Kullanıcıdan silmek istediğinize eminmisiniz şeklinde bir onay al
+  const res = confirm("Bütün sepet silinecek!! Eminmisiniz ??");
+
+  if (res) {
+    // localstorage'ı temizle
+    setToLocalStorage("basket", null);
+
+    // basket dizisini sıfırla
+    basket = [];
+
+    // Sepet alanın Html'ini boşalt
+    elements.basketList.innerHTML = "";
+
+    // Sepetteki ürün miktarına göre clearBtn'i render et
+    controlBtn(basket);
+  }
+};
+
 // ! Olay İzleyicileri
+
 // Formun Gönderilmesini izle
 elements.form.addEventListener("submit", handleSubmit);
 
+// Url'deki değişimi ve sayfa yüklenmesini izle
 ["load", "hashchange"].forEach((eventName) => {
   window.addEventListener(eventName, controlRecipe);
+  // Sayfa yüklendiğinde sepetteki verileri render et
+  renderBasketItems(basket);
+  // Sepetteki ürün miktarına göre clearBtn'i render et
+  controlBtn(basket);
 });
+
+// Recipe alanındaki tıklanmaları izle
+elements.recipeArea.addEventListener("click", handleClick);
+
+// Sepetteki ürünlere tıklanılma olayını izle
+elements.basketList.addEventListener("click", deleteItem);
+
+// ClearBtn'e tıklanma olayını izle
+elements.clearBtn.addEventListener("click", handleClear);

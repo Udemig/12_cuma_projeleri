@@ -293,9 +293,15 @@ main {
         padding: 10px;
         i {
           font-size: 20px;
+          // Butona tıklanıldığında iconun tıklanma özelliğine sahip olması istenilen yapıyı kuramamıza sebep oldu.Bunu engellemek için iconun tıklanma olayını engelledik
+          pointer-events: none;
         }
         &:hover {
           scale: 0.95;
+        }
+        span {
+          // Butona tıklanıldığında span'ın tıklanma özelliğine sahip olması istenilen yapıyı kuramamıza sebep oldu.Bunu engellemek için span'ın tıklanma olayını engelledik
+          pointer-events: none;
         }
       }
     }
@@ -324,6 +330,40 @@ main {
         &:hover {
           background-color: #a9c9ff;
           color: white;
+        }
+      }
+    }
+  }
+  // Shopping
+  .shopping {
+    padding: 5px 10px;
+    h2 {
+      font-family: "Ubuntu", sans-serif;
+      text-align: center;
+      color: #a9c9ff;
+      margin: 30px;
+    }
+    .button-area {
+      display: flex;
+      justify-content: end;
+      button {
+        display: none;
+        background: rgb(221, 0, 0);
+        color: white;
+        cursor: pointer;
+        transition: background 300ms scale 200ms;
+        &:hover {
+          background: rgb(139, 0, 0);
+          scale: 0.9;
+        }
+      }
+    }
+    ul {
+      li {
+        padding: 5px;
+        border-bottom: 1px solid gray;
+        i {
+          cursor: pointer;
         }
       }
     }

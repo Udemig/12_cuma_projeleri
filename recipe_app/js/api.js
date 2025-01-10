@@ -1,4 +1,4 @@
-export class Search {
+class Search {
   constructor(query) {
     this.query = query;
     this.result = [];
@@ -15,3 +15,5 @@ export class Search {
     this.result = data.recipes;
   }
 }
+
+export default Search;

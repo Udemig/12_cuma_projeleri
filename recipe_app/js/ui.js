@@ -25,7 +25,6 @@ export const renderResults = (recipes) => {
 };
 
 // Loader render eden fonksiyon
-
 export const renderLoader = (parent) => {
   // Bir loader elemanı oluştur
   const loader = `
@@ -37,4 +36,20 @@ export const renderLoader = (parent) => {
   // Oluşturulan bu loader'ı parent içerisine aktar
 
   parent.insertAdjacentHTML("afterbegin", loader);
+};
+
+// Sepetteki herbir ürün için bir sepet elemanı render eden fonksiyon
+
+export const renderBasketItems = (items) => {
+  const markup = items
+    .map(
+      (item) => `
+   <li data-id='${item.id}'>
+     <i class="bi bi-x" id='delete-item'></i>
+     <span>${item.title}</span>
+   </li>`
+    )
+    .join("");
+
+  elements.basketList.innerHTML = markup;
 };

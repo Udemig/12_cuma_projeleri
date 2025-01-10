@@ -301,9 +301,13 @@ main .recipe .ingredients button {
 }
 main .recipe .ingredients button i {
   font-size: 20px;
+  pointer-events: none;
 }
 main .recipe .ingredients button:hover {
   scale: 0.95;
+}
+main .recipe .ingredients button span {
+  pointer-events: none;
 }
 main .recipe .directions {
   text-align: center;
@@ -331,6 +335,37 @@ main .recipe .directions a {
 main .recipe .directions a:hover {
   background-color: #a9c9ff;
   color: white;
+}
+main .shopping {
+  padding: 5px 10px;
+}
+main .shopping h2 {
+  font-family: "Ubuntu", sans-serif;
+  text-align: center;
+  color: #a9c9ff;
+  margin: 30px;
+}
+main .shopping .button-area {
+  display: flex;
+  justify-content: end;
+}
+main .shopping .button-area button {
+  display: none;
+  background: rgb(221, 0, 0);
+  color: white;
+  cursor: pointer;
+  transition: background 300ms scale 200ms;
+}
+main .shopping .button-area button:hover {
+  background: rgb(139, 0, 0);
+  scale: 0.9;
+}
+main .shopping ul li {
+  padding: 5px;
+  border-bottom: 1px solid gray;
+}
+main .shopping ul li i {
+  cursor: pointer;
 }
 
 .loader {
