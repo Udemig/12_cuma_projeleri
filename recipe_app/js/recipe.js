@@ -8,6 +8,8 @@ export class Recipe {
     this.ingredients = [];
     // Like dizisi
     this.likes = getFromLocalStorage("likes") || [];
+    // Like'lanan elemanları render et
+    this.renderLike();
   }
   // Tarif bilgilerini alan fonksiyon
   async getRecipe(id) {
@@ -21,6 +23,7 @@ export class Recipe {
 
     this.ingredients = data.recipe.ingredients;
   }
+
   // Tarif bilgilerine göre ekrana renderlama yapan fonksiyon
   renderRecipe(recipe) {
     const markup = `
@@ -31,7 +34,9 @@ export class Recipe {
             />
             <h1>${recipe.title}</h1>
             <div  class="like-area">
-              <i id='like-btn' class="bi bi-heart"></i>
+              <i id='like-btn' class="bi ${
+                this.isRecipeLiked() ? "bi-heart-fill" : "bi-heart"
+              }"></i>
             </div>
           </figure> 
 
@@ -59,6 +64,26 @@ export class Recipe {
 
     elements.recipeArea.innerHTML = markup;
   }
+  // Likeları render eden fonksiyon
+  renderLike() {
+    console.log(this.likes);
+
+    const likedHtml = this.likes
+      .map(
+        (item) => `<a href="#">
+              <img
+                src="${item.img}"
+                alt=""
+              />
+              <p>${item.title} </p>
+            </a>`
+      )
+      .join("");
+
+    // Oluşturulan Html'i like area içerisindeki list'e aktar
+    elements.likeList.innerHTML = likedHtml;
+  }
+
   // Tarif malzemelerini dönen ve herbir eleman için bir li etiketi oluşturan fonksiyon
   createIngredient() {
     const ingredientHtml = this.ingredients
@@ -97,5 +122,11 @@ export class Recipe {
     }
 
     setToLocalStorage("likes", this.likes);
+
+    // Arayüzü güncelle
+    this.renderRecipe(this.info);
+
+    // Like'lanan elemanları render et
+    this.renderLike();
   }
 }

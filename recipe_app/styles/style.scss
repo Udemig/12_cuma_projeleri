@@ -174,8 +174,10 @@ main {
   .results {
     display: flex;
     flex-direction: column;
+    height: 100vh;
     // Result Link
     .result-link {
+      height: 100% !important;
       background-color: white;
       cursor: pointer;
       display: flex;
@@ -212,6 +214,7 @@ main {
   // Recipe
   .recipe {
     background-color: #f9f5f3;
+    height: 100vh !important;
     figure {
       height: 300px;
       position: relative;
@@ -238,6 +241,7 @@ main {
         display: flex;
         justify-content: end;
         padding: 30px;
+
         i {
           font-size: 26px;
           padding: 5px;

@@ -4,6 +4,7 @@ export const elements = {
   recipeArea: document.querySelector(".recipe"),
   basketList: document.querySelector(".shopping ul"),
   clearBtn: document.querySelector("#clear"),
+  likeList: document.querySelector(".list"),
 };
 
 // Localstorage'a kayıt yapacak fonksiyon
