@@ -44,14 +44,10 @@
       </nav>
       <!-- User Info -->
       <div class="user-info">
-        <img
-          src="https://pbs.twimg.com/profile_images/1676729020321284098/J_fa_zs5_normal.jpg"
-          alt="user-image"
-          id="user-img"
-        />
+        <img src="" id="user-img" />
         <div>
-          <p id="user-name">Mehmet Can Seyhan</p>
-          <p id="user-tagname">isvec_krali_</p>
+          <p id="user-name"></p>
+          <p id="user-tagname"></p>
           <button id="logout-btn">
             <i class="bi bi-door-open-fill"></i>
             <span>Çıkış yap</span>
@@ -61,12 +57,121 @@
     </aside>
     <!-- Tweet Kısımı -->
     <main>
-      <h1>Ana İçerik</h1>
+      <!-- Header -->
+      <header>Ana Sayfa</header>
+      <!-- Form -->
+      <form id="post-tweets">
+        <img src="./images/x-logo .png" id="profile-pic" alt="profile-image" />
+        <div class="input-area">
+          <input type="text" placeholder="neler oluyor" />
+          <div class="buttons">
+            <button>Tweetle</button>
+          </div>
+        </div>
+      </form>
+      <!-- Tweeets Alanı -->
+      <div class="tweets-area">
+        <!--      
+        <div class="tweet">
+          <div class="body">
+            <div class="user">
+              <img class="user-image" src="./images/x-logo .png" />
+              <div class="info">
+                <h3>Mehmet Can Seyhan</h3>
+                <p>@isvec_krali_</p>
+                <p>an hour ago</p>
+              </div>
+              <i class="bi bi-three-dots"></i>
+            </div>
+            <div class="content">
+              <p>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nam
+                debitis excepturi culpa recusandae facilis itaque expedita saepe
+                soluta, autem cum quis ipsam aut tenetur quidem ex sequi
+                mollitia corrupti ullam!
+              </p>
+              <img src="./images/x-logo .png" alt="" />
+            </div>
+            <div class="buttons">
+              <button><i class="bi bi-chat"></i><span>44</span></button>
+              <button><i class="bi bi-recycle"></i><span>44</span></button>
+              <button><i class="bi bi-heart"></i><span>44</span></button>
+              <button><i class="bi bi-bookmark"></i><span>44</span></button>
+            </div>
+          </div>
+        </div>
+     
+        <div class="tweet">
+          <div class="body">
+            <div class="user">
+              <img class="user-image" src="./images/x-logo .png" />
+              <div class="info">
+                <h3>Mehmet Can Seyhan</h3>
+                <p>@isvec_krali_</p>
+                <p>an hour ago</p>
+              </div>
+              <i class="bi bi-three-dots"></i>
+            </div>
+            <div class="content">
+              <p>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nam
+                debitis excepturi culpa recusandae facilis itaque expedita saepe
+                soluta, autem cum quis ipsam aut tenetur quidem ex sequi
+                mollitia corrupti ullam!
+              </p>
+              <img src="./images/x-logo .png" alt="" />
+            </div>
+            <div class="buttons">
+              <button><i class="bi bi-chat"></i><span>44</span></button>
+              <button><i class="bi bi-recycle"></i><span>44</span></button>
+              <button><i class="bi bi-heart"></i><span>44</span></button>
+              <button><i class="bi bi-bookmark"></i><span>44</span></button>
+            </div>
+          </div>
+        </div>
+     
+        <div class="tweet">
+          <div class="body">
+            <div class="user">
+              <img class="user-image" src="./images/x-logo .png" />
+              <div class="info">
+                <h3>Mehmet Can Seyhan</h3>
+                <p>@isvec_krali_</p>
+                <p>an hour ago</p>
+              </div>
+              <i class="bi bi-three-dots"></i>
+            </div>
+            <div class="content">
+              <p>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nam
+                debitis excepturi culpa recusandae facilis itaque expedita saepe
+                soluta, autem cum quis ipsam aut tenetur quidem ex sequi
+                mollitia corrupti ullam!
+              </p>
+              <img src="./images/x-logo .png" alt="" />
+            </div>
+            <div class="buttons">
+              <button><i class="bi bi-chat"></i><span>44</span></button>
+              <button><i class="bi bi-recycle"></i><span>44</span></button>
+              <button><i class="bi bi-heart"></i><span>44</span></button>
+              <button><i class="bi bi-bookmark"></i><span>44</span></button>
+            </div>
+          </div>
+        </div> -->
+      </div>
     </main>
     <!-- Haberler Kısımı -->
     <aside class="news">
       <h1>Haberler</h1>
     </aside>
+
+    <!-- * Moment Js -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+      integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
     <!-- * Js Bağlantı -->
     <script src="./js/main.js" type="module"></script>
   </body>

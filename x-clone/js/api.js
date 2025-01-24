@@ -38,7 +38,7 @@ export class API {
     );
 
     const data = await res.json();
-
-    console.log(data.timeline);
+    // Eğer data içerisinde timeline değeri varsa bunu yoksa datayı return et
+    return data.timeline ? data.timeline : data;
   }
 }

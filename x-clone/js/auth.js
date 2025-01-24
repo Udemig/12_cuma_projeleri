@@ -6,6 +6,8 @@ const api = new API();
 const regex =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
 
+// Regex yapısıyla 1 büyük harf bir küçük harf bir rakam,1 özel karakter birde en az 6 karakterden oluşma kontrolü yapıyoruz
+
 // Varsa hataları render edecek fonksiyon
 const renderWarns = (nameWarning, passWarning) => {
   // İsim hatası varsa

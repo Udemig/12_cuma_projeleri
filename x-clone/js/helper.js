@@ -18,4 +18,9 @@ const getFromLocal = (key) => {
   return data;
 };
 
-export { setToLocal, getFromLocal };
+const removeFromLocal = (key) => {
+  // Localstorage'dan belirtilen key'e sahip verileri siler
+  localStorage.removeItem(key);
+};
+
+export { setToLocal, getFromLocal, removeFromLocal };
