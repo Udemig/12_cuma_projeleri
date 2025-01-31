@@ -1,3 +1,5 @@
+import { formatNumber } from "./helper.js";
+
 const authEle = {
   loginForm: document.querySelector("#login"),
   nameInput: document.querySelector("#name"),
@@ -11,10 +13,10 @@ const mainEle = {
   logoutBtn: document.querySelector("#logout-btn"),
   userInfo: document.querySelector(".user-info"),
   main: document.querySelector("main"),
+  searchForm: document.querySelector(".news form"),
 };
 
 // Tweet içeriğindeki media'yı renderlayan fonksiyon
-
 const getMedia = (media) => {
   // Fotoğraf
 
@@ -28,7 +30,7 @@ const getMedia = (media) => {
       (item) => item.content_type === "video/mp4"
     );
 
-    return `<video src='${filtredVideo[0].url} '></video>`;
+    return `<video src='${filtredVideo[0].url}'controls></video>`;
   }
 
   // Ne fotoğraf ne video ise
@@ -37,21 +39,29 @@ const getMedia = (media) => {
 
 // Kullanıcı Tweetlerine göre renderlama yapan fonksiyon
 const renderTimeline = (tweets, outlet, user) => {
+  // İlk olarak outlet içerisini boşalt
+  outlet.innerHTML = "";
   // Tweeet dizisini dön ve html oluştur
   let timelineHtml = tweets
     .map(
       (tweet) => `<div class="tweet">
           <div class="body">
-            <div class="user">
-              <img class="user-image" src="${user.avatar}" />
+            <a href='?user#${
+              user ? user.profile : tweet.screen_name
+            }' class="user">
+              <img class="user-image" src="${
+                user ? user.avatar : tweet.user_info.avatar
+              }" />
               <div class="info">
-                <h3>${user.name}</h3>
-                <p>@${user.profile}</p>
+                <h3>${user ? user.name : tweet.user_info.name}</h3>
+                <p>@${user ? user.name : tweet.user_info.screen_name}</p>
                 <p class='tweet-time'>${moment(tweet.created_at).fromNow()} </p>
               </div>
               <i class="bi bi-three-dots"></i>
-            </div>
-            <a href='?status/${user.profile}#${tweet.tweet_id}' class="content">
+            </a>
+            <a href='?status/${user ? user.profile : tweet.screen_name}#${
+        tweet.tweet_id
+      }' class="content">
               <p>
                ${tweet.text}
               </p>
@@ -98,10 +108,8 @@ const renderUserInfo = (user) => {
 };
 
 // Tweet detay sayfasını renderlayan fonksiyon
-
-const renderInfo = (info, userName) => {
-  console.log(info);
-  console.log(userName);
+const renderInfo = (info) => {
+  mainEle.main.innerHTML = "";
 
   const html = `
   
@@ -139,43 +147,132 @@ const renderInfo = (info, userName) => {
   </p>
 
     <p>
-   <span class='count'>${info.quotes}</span>
-   <span>Alıntılar</span>
-  </p>
+      <span class='count'>${info.quotes}</span>
+      <span>Alıntılar</span>
+    </p>
 
-    <p>
-   <span class='count'>${info.likes}</span>
-   <span>Beğeni</span>
-  </p>
+     <p>
+    <span class='count'>${info.likes}</span>
+    <span>Beğeni</span>
+   </p>
 
 
-    <p>
-   <span class='count'>${info.bookmarks}</span>
-   <span>Yer İşareti</span>
-  </p>
+      <p>
+        <span class='count'>${info.bookmarks}</span>
+        <span>Yer İşareti</span>
+      </p>
   
   
-  </div>
+       </div>
 
- <div class="buttons">
-
-
+           <div class="buttons">
               <button><i class="bi bi-chat"></i><span>${info.quotes}</span></button>
               <button><i class="bi bi-recycle"></i><span>${info.retweets}</span></button>
               <button><i class="bi bi-heart"></i><span>${info.likes}</span></button>
               <button><i class="bi bi-bookmark"></i><span>${info.bookmarks}</span></button>
-   </div>
+            </div>
 
-
-  
-  
-  </div>
+     </div>
   </div>
   
-  
+
   `;
 
   mainEle.main.innerHTML = html;
 };
 
-export { authEle, mainEle, renderTimeline, renderUserInfo, renderInfo };
+// Loader
+const renderLoader = (outlet) => {
+  outlet.innerHTML = `<div class='d-flex justify-content-center mt-5'>
+  <div class="spinner-grow" role="status">
+  <span class="visually-hidden">Loading...</span>
+</div>
+</div>`;
+};
+// Tweet Detay Sayfası Loader
+const renderDetailLoader = () => {
+  // Main'in içeriğini boşalt
+  mainEle.main.innerHTML = "";
+
+  // Main içerisine boş bir loader ekle
+  mainEle.main.innerHTML = `
+  
+   <div class='top'>
+   <i class="bi bi-arrow-left-short"></i>
+   <h3>Gönderi</h3>
+  </div>
+
+
+   <div class='d-flex justify-content-center mt-5'>
+   <div class="spinner-grow" role="status">
+   <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  
+  
+  `;
+};
+
+// Kullanıcı Detay Sayfasını Render Eden Fonksiyon
+const renderUserPage = (user) => {
+  mainEle.main.innerHTML = `
+
+<div class='user-page'>
+
+  <div class='top'>
+    <i class="bi bi-arrow-left-short"></i>
+    <h3>${user.name}</h3>
+  </div> 
+
+  <div class='banner'>
+    <img src='${user.header_image}'/>
+    <img class='user-pp' src='${user.avatar}' />
+  </div> 
+  
+  <div class='buttons'>
+    <div class='icon'>
+      <i class="bi bi-three-dots"></i>
+    </div> 
+    
+    <div class='icon'>
+      <i class="bi bi-envelope"></i>
+    </div>
+
+      <button>Takip Et</button>
+  </div> 
+
+  <div class='user-page-info'>
+    <h4>${user.name}</h4>
+    <p>@${user.profile}</p>
+    <p>${user.desc}</p>
+    
+    <div>
+      <p>
+        <span class='count'>${user.friends}</span>
+        <span> Takip Edilen</span>
+      </p>
+      
+      <p>
+        <span class='count'>${formatNumber(user.sub_count)}</span>
+        <span>Takipçi</span>
+      </p>
+    </div>
+  </div> 
+
+  <div class='user-tweets'></div>
+
+</div> 
+  
+  `;
+};
+export {
+  authEle,
+  mainEle,
+  renderTimeline,
+  renderUserInfo,
+  renderInfo,
+  renderLoader,
+  renderDetailLoader,
+  renderUserPage,
+};

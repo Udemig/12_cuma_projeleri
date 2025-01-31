@@ -23,4 +23,12 @@ const removeFromLocal = (key) => {
   localStorage.removeItem(key);
 };
 
-export { setToLocal, getFromLocal, removeFromLocal };
+const formatNumber = (number) => {
+  if (number > 1_000_000) {
+    return (number / 1_000_000).toFixed(2) + "M";
+  } else {
+    return number;
+  }
+};
+
+export { setToLocal, getFromLocal, removeFromLocal, formatNumber };

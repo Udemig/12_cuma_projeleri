@@ -119,6 +119,96 @@ button {
   background-color: rgba(152, 152, 152, 0.331);
 }
 
+.user-page .top {
+  padding: 20px;
+}
+.user-page .banner {
+  position: relative;
+}
+.user-page .banner img {
+  width: 100%;
+  height: 200px;
+}
+.user-page .banner .user-pp {
+  position: absolute;
+  left: 30px;
+  bottom: -65px;
+  max-width: 130px;
+  max-height: 130px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 50%;
+}
+.user-page .buttons {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  margin-top: 40px;
+  margin-right: 40px;
+  gap: 30px;
+}
+.user-page .buttons .icon {
+  width: 40px;
+  height: 40px;
+  border: 1px solid white;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+}
+.user-page .buttons button {
+  width: 100px;
+  border-radius: 20px;
+}
+.user-page .user-page-info {
+  padding: 20px;
+  border-bottom: 1px solid rgb(70, 70, 70);
+}
+.user-page .user-page-info div {
+  display: flex;
+  gap: 40px;
+}
+.user-page .user-page-info div p {
+  color: rgb(171, 171, 171);
+}
+.user-page .user-page-info div p .count {
+  color: white;
+  font-weight: bold;
+}
+
+.news {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+}
+.news form {
+  background-color: rgb(40, 40, 40);
+  padding: 5px 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 40px;
+  color: rgb(183, 181, 181);
+}
+.news form input {
+  background: none;
+  border: none;
+  outline: none;
+  color: rgb(183, 181, 181);
+}
+.news .trends {
+  background-color: rgb(40, 40, 40);
+  padding: 20px;
+  list-style: none;
+  min-width: 250px;
+  border-radius: 10px;
+}
+.news .trends li {
+  padding: 10px;
+  border-bottom: 1px solid rgb(90, 90, 90);
+}
+
 a {
   text-decoration: none;
   color: white;
@@ -320,55 +410,66 @@ a {
   display: flex;
   flex-direction: column;
 }
-.feed main .tweets-area .tweet {
+.feed main .tweet {
   display: flex;
   gap: 15px;
   padding: 10px;
   border-bottom: 1px solid rgb(28, 28, 28);
 }
-.feed main .tweets-area .tweet:hover {
+.feed main .tweet:hover {
   background-color: rgb(28, 28, 28);
 }
-.feed main .tweets-area .tweet .user-image {
+.feed main .tweet .user-image {
   height: 40px;
   width: 40px;
   border-radius: 50%;
 }
-.feed main .tweets-area .tweet .body {
+.feed main .tweet .body {
   width: 100%;
   margin-top: 10px;
+  padding: 20px;
 }
-.feed main .tweets-area .tweet .body .user {
+.feed main .tweet .body .user {
   display: flex;
   align-items: center;
   justify-content: space-between;
   color: white;
 }
-.feed main .tweets-area .tweet .body .user .info {
+.feed main .tweet .body .user .info {
   display: flex;
   align-items: center;
   gap: 10px;
   width: 70%;
-}
-.feed main .tweets-area .tweet .body .user .info p {
-  color: gray;
-}
-.feed main .tweets-area .tweet .body .user .info .tweet-time {
   white-space: nowrap;
 }
-.feed main .tweets-area .tweet .body .content img {
+.feed main .tweet .body .user .info p {
+  color: gray;
+}
+.feed main .tweet .body .user .info .tweet-time {
+  white-space: nowrap;
+}
+.feed main .tweet .body .content {
+  width: 100% !important;
+  padding: 20px;
+}
+.feed main .tweet .body .content img {
   width: 100%;
   -o-object-fit: cover;
      object-fit: cover;
   max-height: 300px;
   border-radius: 10px;
 }
-.feed main .tweets-area .tweet .body .buttons {
+.feed main .tweet .body .content video {
+  width: 100%;
+  max-height: 500px;
+  border-radius: 20px;
+}
+.feed main .tweet .body .buttons {
   display: flex;
   justify-content: space-between;
   margin-top: 10px;
 }
-.feed main .tweets-area .tweet .body .buttons button {
+.feed main .tweet .body .buttons button {
   background: none;
   color: rgb(136, 136, 136);
   font-size: 15px;
